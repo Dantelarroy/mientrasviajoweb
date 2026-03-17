@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --canvas: #0f1014;
+  --canvas-soft: #161821;
+  --ink: #f6f3ef;
+  --ink-muted: #beb6ac;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-canvas-soft: var(--canvas-soft);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 10%, #2f3445 0%, #0f1014 42%),
+    radial-gradient(circle at 88% 82%, #1f2533 0%, transparent 30%),
+    var(--canvas);
+  font-family: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
+}
+
+.font-display {
+  font-family: "Bodoni 72", "Didot", "Iowan Old Style", "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+
+.background-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(16, 30, 63, 0.55) 0%, rgba(15, 16, 20, 0.2) 28%, rgba(15, 16, 20, 0.9) 100%),
+    radial-gradient(circle at 24% 22%, rgba(143, 205, 255, 0.2), transparent 34%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.carousel-shell {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  padding: 0 1.25rem;
+  animation: marquee 34s linear infinite;
+}
+
+.carousel-shell:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+.carousel-slide {
+  width: min(74vw, 420px);
+  flex: 0 0 auto;
+}
+
+.carousel-slide > div {
+  aspect-ratio: 4 / 5;
+}
+
+@media (min-width: 768px) {
+  .carousel-track {
+    gap: 1.25rem;
+    padding: 0 1.75rem;
+  }
+
+  .carousel-slide {
+    width: min(46vw, 440px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel-slide {
+    width: min(32vw, 500px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+  }
+}
