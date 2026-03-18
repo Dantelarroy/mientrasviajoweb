@@ -412,6 +412,227 @@ export default function Home() {
           </section>
         </FadeIn>
 
+        {/* ── PRECIO ── */}
+        <FadeIn>
+          <section className="section">
+            <div className="container">
+              <div className="mx-auto max-w-[520px] text-center">
+
+                <h2 className="section-title">Tu lugar</h2>
+                <p
+                  className="section-subtitle not-italic mt-3"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  Plazas limitadas · Mayo 2026
+                </p>
+
+                {/* Card de precio */}
+                <div
+                  style={{
+                    marginTop: "3rem",
+                    background: "var(--color-bg-card)",
+                    border: "1.5px solid var(--color-border)",
+                    borderRadius: "24px",
+                    overflow: "hidden",
+                    boxShadow: "0 32px 80px rgba(90, 45, 25, 0.13), 0 2px 8px rgba(90, 45, 25, 0.06)",
+                  }}
+                >
+                  {/* Franja superior Early Bird */}
+                  <div
+                    style={{
+                      background: "var(--color-coral-dark)",
+                      padding: "0.9rem 2rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.6rem",
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: "inline-block",
+                        width: "8px",
+                        height: "8px",
+                        borderRadius: "50%",
+                        background: "#fff",
+                        animation: "pulse-dot 1.6s ease-in-out infinite",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "var(--font-titles)",
+                        fontWeight: 700,
+                        fontSize: "0.78rem",
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "#fff",
+                      }}
+                    >
+                      Early Bird · Precio especial
+                    </span>
+                  </div>
+
+                  {/* Cuerpo */}
+                  <div style={{ padding: "2.5rem 2.5rem 2rem" }}>
+
+                    {/* Precio principal */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-end",
+                        justifyContent: "center",
+                        gap: "0.5rem",
+                        lineHeight: 1,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-titles)",
+                          fontWeight: 900,
+                          fontSize: "clamp(4.5rem, 20vw, 7rem)",
+                          color: "var(--color-coral-dark)",
+                          letterSpacing: "-0.04em",
+                          lineHeight: 0.9,
+                        }}
+                      >
+                        300
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-titles)",
+                          fontWeight: 700,
+                          fontSize: "1.8rem",
+                          color: "var(--color-coral-dark)",
+                          paddingBottom: "0.4rem",
+                        }}
+                      >
+                        €
+                      </span>
+                    </div>
+
+                    {/* Nota manuscrita */}
+                    <p
+                      style={{
+                        fontFamily: "var(--font-hand)",
+                        fontSize: "1.05rem",
+                        color: "var(--color-coral)",
+                        marginTop: "0.4rem",
+                        marginBottom: 0,
+                      }}
+                    >
+                      en vez de 350€ — ahorrás 50€ 🎉
+                    </p>
+
+                    {/* Lo que incluye */}
+                    <ul
+                      style={{
+                        listStyle: "none",
+                        padding: 0,
+                        margin: "1.75rem 0 0",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.6rem",
+                        textAlign: "left",
+                      }}
+                    >
+                      {[
+                        "Alojamiento en habitación compartida",
+                        "Todas las comidas incluidas",
+                        "Actividades: yoga, bodega, taller",
+                        "Transporte desde punto de encuentro",
+                      ].map((item) => (
+                        <li
+                          key={item}
+                          style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: "0.92rem",
+                            color: "var(--color-text-secondary)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "0.6rem",
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: "var(--color-coral)",
+                              fontWeight: 700,
+                              fontSize: "1rem",
+                              marginTop: "0.05rem",
+                              flexShrink: 0,
+                            }}
+                          >
+                            ✓
+                          </span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Divisor */}
+                    <div
+                      style={{
+                        borderTop: "1.5px dashed var(--color-border-strong)",
+                        margin: "2rem 0 1.75rem",
+                      }}
+                    />
+
+                    {/* CTA */}
+                    <TrackedLink
+                      href={WHATSAPP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      trackingLabel="Escapada Vol I - Precio Early Bird"
+                      className="hero-cta"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "100%",
+                        borderRadius: "100px",
+                        padding: "1.1rem 2rem",
+                        fontSize: "1rem",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      Quiero reservar mi lugar →
+                    </TrackedLink>
+
+                    {/* Urgencia suave */}
+                    <p
+                      style={{
+                        fontFamily: "var(--font-titles)",
+                        fontSize: "0.72rem",
+                        letterSpacing: "0.04em",
+                        color: "var(--color-text-muted)",
+                        marginTop: "1rem",
+                        marginBottom: 0,
+                      }}
+                    >
+                      Quedan pocas plazas · Se cierra cuando se llena
+                    </p>
+
+                  </div>
+                </div>
+
+                {/* Garantía debajo de la card */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-hand)",
+                    fontSize: "1rem",
+                    color: "var(--color-text-secondary)",
+                    marginTop: "1.5rem",
+                  }}
+                >
+                  ¿Dudás? Escribinos sin compromiso 💛
+                </p>
+
+              </div>
+            </div>
+          </section>
+        </FadeIn>
+
         {/* ── CTA FINAL ── */}
         <FadeIn>
           <section id="reservar" className="section bg-[var(--color-coral-dark)] text-white torn-top">
