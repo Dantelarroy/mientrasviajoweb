@@ -1,24 +1,46 @@
 "use client";
 
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
 const slides = [
-  { src: "/assets/sunset_copas.jpeg", alt: "Atardecer y buenas copas" },
-  { src: "/assets/slide_0.jpeg", alt: "Gastro chill bodega casa rural" },
-  { src: "/assets/polaroid_yoga.jpeg", alt: "Re-conectar y descansar" },
-  { src: "/assets/collage_viaje.jpeg", alt: "Conocer amigas viaje en auto" },
-  { src: "/assets/WhatsApp Image 2026-03-18 at 12.00.12 AM.jpeg", alt: "Paisaje de escapada" },
+  {
+    src: "/assets/moodboard.jpeg",
+    alt: "Moodboard de la escapada con experiencias destacadas",
+    width: 1280,
+    height: 1600,
+  },
+  {
+    src: "/assets/polaroid_yoga.jpeg",
+    alt: "Polaroid de reconexión y descanso durante el viaje",
+    width: 1280,
+    height: 1600,
+  },
+  {
+    src: "/assets/collage_viaje.jpeg",
+    alt: "Collage de amigas y viaje compartido en ruta",
+    width: 1280,
+    height: 1600,
+  },
+  {
+    src: "/assets/sunset_copas.jpeg",
+    alt: "Composición visual del atardecer y espíritu de escapada",
+    width: 1280,
+    height: 1600,
+  },
 ];
 
 export default function Galeria() {
   const plugins = useMemo(() => [Autoplay({ delay: 3500, stopOnInteraction: true })], []);
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start", dragFree: false, slidesToScroll: 1 },
+    { loop: true, align: "center", dragFree: false, slidesToScroll: 1 },
     plugins,
   );
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [lightbox, setLightbox] = useState<number | null>(null);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -29,113 +51,132 @@ export default function Galeria() {
     onSelect();
     emblaApi.on("select", onSelect);
     emblaApi.plugins().autoplay?.play();
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
+    return () => { emblaApi.off("select", onSelect); };
   }, [emblaApi]);
 
-  return (
-    <section style={{ background: "var(--color-bg-alt)", padding: "5rem 0" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
-        <p
-          style={{
-            fontFamily: "var(--font-titles)",
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--color-coral-dark)",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Las fotos
-        </p>
-        <h2
-          style={{
-            fontFamily: "var(--font-titles)",
-            fontSize: "clamp(2rem,5vw,3.5rem)",
-            fontWeight: 900,
-            color: "var(--color-text-primary)",
-            marginBottom: "2.5rem",
-          }}
-        >
-          Momentos
-        </h2>
-      </div>
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowRight") setLightbox(i => i !== null ? (i + 1) % slides.length : 0);
+      if (e.key === "ArrowLeft") setLightbox(i => i !== null ? (i - 1 + slides.length) % slides.length : 0);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox]);
 
-      <div ref={emblaRef} style={{ overflow: "hidden", cursor: "grab" }}>
-        <div
-          style={{
-            display: "flex",
-            gap: "1.5rem",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            userSelect: "none",
-          }}
-        >
-          {slides.map((slide, i) => (
-            <div key={i} className="embla__slide">
-              <img
-                src={slide.src}
-                alt={slide.alt}
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-            </div>
+  return (
+    <>
+      <section className="galeria-section">
+        <div className="galeria-heading text-center">
+          <h2 className="section-title">Momentos</h2>
+          <p className="section-subtitle not-italic mt-3" style={{ fontFamily: "var(--font-body)" }}>
+            Una selección de momentos que lo dicen todo.
+          </p>
+        </div>
+
+        <div ref={emblaRef} className="galeria-embla">
+          <div className="galeria-track">
+            {slides.map((slide, i) => (
+              <div
+                key={i}
+                className="embla__slide"
+                onClick={() => setLightbox(i)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => e.key === "Enter" && setLightbox(i)}
+                aria-label={`Ver imagen: ${slide.alt}`}
+                style={{ cursor: "zoom-in" }}
+              >
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  width={slide.width}
+                  height={slide.height}
+                  sizes="(max-width: 767px) 85vw, (max-width: 1023px) 50vw, 33vw"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  className="galeria-image"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="galeria-dots">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => emblaApi?.scrollTo(i)}
+              className="galeria-dot"
+              data-active={selectedIndex === i ? "true" : "false"}
+              aria-label={`Ir al slide ${i + 1}`}
+            />
           ))}
         </div>
-      </div>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "1.5rem" }}>
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => emblaApi?.scrollTo(i)}
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "var(--color-coral)",
-              border: "none",
-              cursor: "pointer",
-              opacity: selectedIndex === i ? 1 : 0.4,
-            }}
-            aria-label={`Ir al slide ${i + 1}`}
-          />
-        ))}
-      </div>
+        <div className="galeria-controls">
+          <button type="button" onClick={scrollPrev} className="galeria-control-btn">←</button>
+          <button type="button" onClick={scrollNext} className="galeria-control-btn">→</button>
+        </div>
+      </section>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "12px", marginTop: "1rem" }}>
-        <button
-          type="button"
-          onClick={scrollPrev}
-          style={{
-            border: "1px solid var(--color-border-strong)",
-            background: "transparent",
-            borderRadius: "9999px",
-            padding: "0.4rem 0.85rem",
-            fontFamily: "var(--font-titles)",
-            fontWeight: 700,
-            cursor: "pointer",
-          }}
-        >
-          ←
-        </button>
-        <button
-          type="button"
-          onClick={scrollNext}
-          style={{
-            border: "1px solid var(--color-border-strong)",
-            background: "transparent",
-            borderRadius: "9999px",
-            padding: "0.4rem 0.85rem",
-            fontFamily: "var(--font-titles)",
-            fontWeight: 700,
-            cursor: "pointer",
-          }}
-        >
-          →
-        </button>
-      </div>
-    </section>
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            className="lightbox-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            onClick={() => setLightbox(null)}
+          >
+            <motion.div
+              className="lightbox-img-wrap"
+              initial={{ scale: 0.88, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.88, opacity: 0 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              onClick={e => e.stopPropagation()}
+            >
+              <Image
+                src={slides[lightbox].src}
+                alt={slides[lightbox].alt}
+                width={slides[lightbox].width}
+                height={slides[lightbox].height}
+                className="lightbox-img"
+                priority
+              />
+            </motion.div>
+
+            <button
+              className="lightbox-close"
+              onClick={() => setLightbox(null)}
+              aria-label="Cerrar"
+            >
+              ×
+            </button>
+
+            <button
+              className="lightbox-nav lightbox-prev"
+              onClick={e => { e.stopPropagation(); setLightbox(i => i !== null ? (i - 1 + slides.length) % slides.length : 0); }}
+              aria-label="Imagen anterior"
+            >
+              ‹
+            </button>
+            <button
+              className="lightbox-nav lightbox-next"
+              onClick={e => { e.stopPropagation(); setLightbox(i => i !== null ? (i + 1) % slides.length : 0); }}
+              aria-label="Imagen siguiente"
+            >
+              ›
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
