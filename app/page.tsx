@@ -12,6 +12,7 @@ import CountdownTimer from "./components/CountdownTimer";
 import StickyNav from "./components/StickyNav";
 import ScrollProgress from "./components/ScrollProgress";
 import SiteFooter from "./components/SiteFooter";
+import MapaUbicacion from "./components/MapaUbicacion";
 import {
   EVENT_NAME,
   INSTAGRAM_URL,
@@ -28,19 +29,14 @@ import {
 } from "./lib/site";
 
 const inclusions = [
-  { icon: "🏡", title: "Alojamiento", text: "2 noches en una masía típica catalana, rodeada de naturaleza a 2h de Barcelona" },
+  { icon: "🏡", title: "Alojamiento", text: "2 noches en la masía Torre Graells, a 2h de Barcelona." },
   { icon: "🚗", title: "Traslados", text: "Ida y vuelta desde Barcelona + desplazamientos durante la estancia" },
-  { icon: "🧘", title: "Yoga & meditación", text: "1 clase de yoga + 2 sesiones de meditación" },
+  { icon: "🧘", title: "Yoga & meditación", text: "1 clase de yoga y 2 sesiones de meditación a cargo de Juli Boe" },
   { icon: "🥗", title: "Comidas", text: "2 desayunos saludables + 4 comidas (almuerzos y cenas)" },
   { icon: "🍷", title: "Experiencia gastronómica", text: "Visita a una bodega + cata de vinos" },
   { icon: "🎨", title: "Taller creativo", text: "Todos los materiales incluidos" },
 ];
 
-const itinerary = [
-  { emoji: "🌙", day: "Viernes 15", desc: "Llegada + bienvenida" },
-  { emoji: "☀️", day: "Sábado 16", desc: "Día completo de experiencias" },
-  { emoji: "☕", day: "Domingo 17", desc: "Sorpresitas, cierre y despedida" },
-];
 
 export async function generateMetadata(): Promise<Metadata> {
   const days = Math.max(
@@ -202,19 +198,17 @@ export default function Home() {
 
           <div className="container pt-6">
             <div className="hero-content">
-              <p className="sticky-note">Próxima escapada</p>
-              <h1 className="hero-title mt-4">ESCAPADA VOL&nbsp;I</h1>
-              <p className="hero-date not-italic">15 — 17 de Mayo</p>
+              <h1 className="hero-title mt-4 uppercase">Escapada Mientras Viajo Vol.&nbsp;I</h1>
+              <p className="hero-subtitle">Un fin de semana para volver a nosotras</p>
+              <p className="hero-meta">Del 15 al 17 de mayo · Plazas limitadas</p>
               <p className="body-large hero-desc mt-5">
-                Escapada de fin de semana para mujeres con naturaleza, descanso, creatividad,
-                yoga, experiencia gastronómica y momentos para reconectar fuera de la ciudad.
+                Vamos a desconectar de la rutina, conectar con nuestra esencia y vivir el viaje desde lo más real.
               </p>
               <div className="hero-actions">
                 <CountdownTimer />
                 <a href="#reservar" className="hero-cta inline-flex items-center rounded-full px-8 py-3.5">
-                  Quiero ir →
+                  Quiero más info
                 </a>
-                <p className="hero-availability">• Pocas plazas disponibles</p>
               </div>
             </div>
           </div>
@@ -229,9 +223,6 @@ export default function Home() {
             <div className="container experience-grid">
               <div>
                 <h2 className="section-title">Detrás de<br />Mientras Viajo</h2>
-                <p className="section-subtitle not-italic mt-3" style={{ fontFamily: "var(--font-body)" }}>
-                  Detrás de Mientras Viajo estamos nosotras, Cami y Maru.
-                </p>
                 <div className="mt-6 space-y-4">
                   <p className="text-[var(--color-text-secondary)] leading-7">
                     Dos amigas que se conocieron viajando y que, después de 10 años recorriendo
@@ -277,10 +268,7 @@ export default function Home() {
           <section className="section">
             <div className="container experience-grid">
               <div>
-                <h2 className="section-title">💛 La experiencia</h2>
-                <p className="section-subtitle not-italic mt-3" style={{ fontFamily: "var(--font-body)" }}>
-                  lo mágico de viajar está en lo más real
-                </p>
+                <h2 className="section-title">La experiencia</h2>
                 <div className="mt-6 space-y-4">
                   <p className="text-[var(--color-text-secondary)] leading-7">
                     ¿Te imaginas un fin de semana donde todo el acelero que llevamos a diario
@@ -296,9 +284,10 @@ export default function Home() {
                     vivir algo diferente.
                   </p>
                   <p className="text-[var(--color-text-secondary)] leading-7">
-                    Bueno, de eso se trata esta experiencia que hemos creado.
+                    Bueno, de eso se trata esta experiencia que hemos creado porque creemos que lo mágico de viajar está en lo más real.
                   </p>
                 </div>
+                <h3 className="section-title" style={{ fontSize: "clamp(1.4rem, 4vw, 1.9rem)", marginTop: "clamp(2rem, 7vw, 4rem)" }}>Qué incluye</h3>
                 <div className="include-grid mt-7">
                   {inclusions.map(({ icon, title, text }) => (
                     <article key={title} className="include-card">
@@ -321,7 +310,6 @@ export default function Home() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="polaroid-caption">Atardecer y brindis entre amigas</p>
                 </article>
               </div>
             </div>
@@ -333,10 +321,7 @@ export default function Home() {
           <section className="section bg-[var(--color-bg-alt)]">
             <div className="container">
               <div className="mx-auto max-w-[640px]">
-                <h2 className="section-title text-center">Una pausa de las que<br />de verdad hacen falta.</h2>
-                <p className="section-subtitle not-italic mt-3 text-center" style={{ fontFamily: "var(--font-body)" }}>
-                  Este viaje es para ti si…
-                </p>
+                <h2 className="section-title text-center">Este viaje es para ti si…</h2>
                 <ul className="mt-8 space-y-3" role="list">
                   {[
                     "Sientes que necesitas una pausa de la rutina",
@@ -369,34 +354,6 @@ export default function Home() {
         {/* ── GALERÍA ── */}
         <Galeria />
 
-        {/* ── TIMELINE ── */}
-        <FadeIn>
-          <section className="section">
-            <div className="container">
-              <h2 className="section-title text-center">Los 3 días</h2>
-              <p className="section-subtitle not-italic mt-3 text-center" style={{ fontFamily: "var(--font-body)" }}>
-                Tres días donde el tiempo pasa diferente.
-              </p>
-              <div className="timeline mt-10">
-                {itinerary.map((item, i) => (
-                  <FadeIn key={item.day} delay={i * 0.13}>
-                    <article className="timeline-item">
-                      <div className="timeline-dot">{item.emoji}</div>
-                      <div className="timeline-card">
-                        <h3 className="m-0 text-lg font-semibold text-[var(--color-text-primary)]">{item.day}</h3>
-                        <p className="m-0 mt-1 text-[var(--color-text-secondary)]">{item.desc}</p>
-                      </div>
-                    </article>
-                  </FadeIn>
-                ))}
-              </div>
-              <p className="mt-8 text-center text-[var(--color-text-secondary)] leading-7">
-                El itinerario detallado se compartira al confirmar tu lugar :)
-              </p>
-            </div>
-          </section>
-        </FadeIn>
-
         {/* ── FAQ ── */}
         <FadeIn>
           <section className="section bg-[var(--color-bg-alt)]">
@@ -406,7 +363,13 @@ export default function Home() {
                 Todo lo que querés saber antes de reservar.
               </p>
               <div className="mt-7">
-                <FaqAccordion items={faqItems} />
+                <FaqAccordion
+                  items={faqItems.map((item) =>
+                    item.q === "¿Dónde es exactamente?"
+                      ? { ...item, extra: <MapaUbicacion /> }
+                      : item
+                  )}
+                />
               </div>
             </div>
           </section>
@@ -521,7 +484,7 @@ export default function Home() {
                         marginBottom: 0,
                       }}
                     >
-                      en vez de 350€ — ahorrás 50€ 🎉
+                      Si pagas antes del 15/04/2026
                     </p>
 
                     {/* Lo que incluye */}
@@ -539,8 +502,8 @@ export default function Home() {
                       {[
                         "Alojamiento en habitación compartida",
                         "Todas las comidas incluidas",
-                        "Actividades: yoga, bodega, taller",
                         "Transporte desde punto de encuentro",
+                        "Puedes reservar tu plaza pagando 120€",
                       ].map((item) => (
                         <li
                           key={item}
@@ -599,34 +562,8 @@ export default function Home() {
                       Quiero reservar mi lugar →
                     </TrackedLink>
 
-                    {/* Urgencia suave */}
-                    <p
-                      style={{
-                        fontFamily: "var(--font-titles)",
-                        fontSize: "0.72rem",
-                        letterSpacing: "0.04em",
-                        color: "var(--color-text-muted)",
-                        marginTop: "1rem",
-                        marginBottom: 0,
-                      }}
-                    >
-                      Quedan pocas plazas · Se cierra cuando se llena
-                    </p>
-
                   </div>
                 </div>
-
-                {/* Garantía debajo de la card */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-hand)",
-                    fontSize: "1rem",
-                    color: "var(--color-text-secondary)",
-                    marginTop: "1.5rem",
-                  }}
-                >
-                  ¿Dudás? Escribinos sin compromiso 💛
-                </p>
 
               </div>
             </div>
@@ -646,9 +583,9 @@ export default function Home() {
                   style={{ borderRadius: "50%", objectFit: "contain" }}
                 />
               </div>
-              <h2 className="font-titles text-[clamp(3rem,8vw,6rem)] leading-[0.9] m-0">¿Te sumás?</h2>
+              <h2 className="font-titles text-[clamp(3rem,8vw,6rem)] leading-[0.9] m-0">Súmate</h2>
               <p className="font-body mt-3 text-xl text-white/85">
-                Cupos muy limitados. Reservá tu lugar ahora.
+                Plazas limitadas. Reserva tu lugar ahora.
               </p>
               <TrackedLink
                 href={WHATSAPP_URL}

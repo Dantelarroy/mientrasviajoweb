@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 html {
   scroll-behavior: smooth;
@@ -167,13 +168,41 @@ main {
   height: auto;
 }
 
-.hero-date {
+/* Subtítulo emocional — cursiva, misma font que el título */
+.hero-subtitle {
   font-family: var(--font-titles);
-  font-weight: 800;
+  font-weight: 700;
   font-style: italic;
-  margin-top: 0.7rem;
-  font-size: clamp(1.9rem, 4.1vw, 3rem);
+  font-size: clamp(1.3rem, 2.8vw, 1.75rem);
   color: var(--color-coral-dark);
+  line-height: 1.3;
+  margin: 0;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+/* Meta info con líneas decorativas a los costados */
+.hero-meta {
+  font-family: var(--font-titles);
+  font-weight: 600;
+  font-size: clamp(0.7rem, 1.3vw, 0.82rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hero-meta::before,
+.hero-meta::after {
+  content: "";
+  flex: 0 0 clamp(2rem, 5vw, 3.5rem);
+  height: 1px;
+  background: var(--color-text-secondary);
+  opacity: 0.4;
 }
 
 .hero-desc {
@@ -988,9 +1017,18 @@ main {
     bottom: clamp(-42px, -8vw, -26px);
   }
 
-  .hero-date {
-    font-size: clamp(1.8rem, 9.2vw, 2.45rem);
-    margin-top: 0.5rem;
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
+  }
+
+  .hero-meta {
+    font-size: 0.72rem;
+    gap: 0.6rem;
+  }
+
+  .hero-meta::before,
+  .hero-meta::after {
+    flex: 0 0 clamp(1rem, 4vw, 2rem);
   }
 
   .hero-cta {
@@ -1551,5 +1589,134 @@ main {
 
   .lightbox-next {
     right: 0.5rem;
+  }
+}
+
+/* ── MAPA UBICACIÓN ── */
+.mapa-ubicacion-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(90, 45, 25, 0.12), 0 2px 8px rgba(90, 45, 25, 0.06);
+  margin-top: 2.5rem;
+  height: 380px;
+}
+
+.mapa-ubicacion-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.mapa-ubicacion-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  background: var(--color-bg-card, #fff);
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-titles);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  pointer-events: none;
+}
+
+.mapa-ubicacion-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-coral-dark);
+  animation: pulse-dot 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* Controles de zoom de MapLibre */
+.maplibregl-ctrl-zoom-in,
+.maplibregl-ctrl-zoom-out {
+  border-radius: 8px !important;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 10px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12) !important;
+  overflow: hidden;
+  margin: 0.75rem !important;
+}
+
+/* Popup del marcador */
+.mapa-popup .maplibregl-popup-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+  font-family: var(--font-titles);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: none;
+}
+
+.mapa-popup .maplibregl-popup-content strong {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-coral-dark);
+  display: block;
+}
+
+.mapa-popup .maplibregl-popup-content span {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  display: block;
+}
+
+.mapa-popup .maplibregl-popup-tip {
+  border-top-color: #fff !important;
+}
+
+/* Animación pulse del marcador */
+@keyframes mapa-pulse {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@media (max-width: 767px) {
+  .mapa-ubicacion-wrap {
+    height: 260px;
+    border-radius: 14px;
+  }
+
+  .mapa-ubicacion-badge {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.7rem;
+    max-width: calc(100% - 1.5rem);
+  }
+
+  .maplibregl-ctrl-group {
+    margin: 0.5rem !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .mapa-ubicacion-wrap {
+    height: 220px;
+  }
+
+  .hero-meta {
+    gap: 0.4rem;
+    font-size: 0.65rem;
+  }
+
+  .hero-meta::before,
+  .hero-meta::after {
+    flex: 0 0 0.8rem;
   }
 }

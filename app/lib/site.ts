@@ -35,7 +35,7 @@ export const faqItems = [
   },
   {
     q: "¿Dónde es exactamente?",
-    a: "La experiencia se realiza en una masía en la naturaleza, a unas 2h de Barcelona. Te daremos todos los detalles una vez reserves tu plaza.",
+    a: "La escapada la haremos en Gerb, Lleida. A 2 horas de Barcelona.",
   },
   {
     q: "¿Las comidas están incluidas?",

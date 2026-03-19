@@ -72,13 +72,6 @@ export default function Galeria() {
   return (
     <>
       <section className="galeria-section">
-        <div className="galeria-heading text-center">
-          <h2 className="section-title">Momentos</h2>
-          <p className="section-subtitle not-italic mt-3" style={{ fontFamily: "var(--font-body)" }}>
-            Una selección de momentos que lo dicen todo.
-          </p>
-        </div>
-
         <div ref={emblaRef} className="galeria-embla">
           <div className="galeria-track">
             {slides.map((slide, i) => (

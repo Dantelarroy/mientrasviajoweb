@@ -2,10 +2,12 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import type { ReactNode } from "react";
 
 type FaqItem = {
   q: string;
   a: string;
+  extra?: ReactNode;
 };
 
 type FaqAccordionProps = {
@@ -13,7 +15,7 @@ type FaqAccordionProps = {
 };
 
 export default function FaqAccordion({ items }: FaqAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
 
   return (
@@ -41,9 +43,10 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
                   animate={reduceMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
                   exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
                   transition={{ duration: reduceMotion ? 0.15 : 0.3, ease: "easeOut" }}
-                  style={{ overflow: "hidden" }}
+                  style={{ overflow: "hidden", overflowX: "hidden" }}
                 >
                   <p className="faq-answer">{item.a}</p>
+                  {item.extra}
                 </motion.div>
               ) : null}
             </AnimatePresence>
