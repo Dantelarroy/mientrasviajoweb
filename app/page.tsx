@@ -206,7 +206,7 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <CountdownTimer />
-                <a href="#reservar" className="hero-cta inline-flex items-center rounded-full px-8 py-3.5">
+                <a href="#reservar" className="hero-cta inline-flex items-center rounded-full px-8 py-3.5 mt-4">
                   Quiero más info
                 </a>
               </div>

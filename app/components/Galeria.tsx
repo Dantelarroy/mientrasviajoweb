@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
@@ -26,6 +26,12 @@ const slides = [
     height: 1600,
   },
   {
+    src: "/assets/WhatsApp_Image_2026-03-18_at_12_00_12_AM.jpeg",
+    alt: "Momento de la escapada",
+    width: 1280,
+    height: 1600,
+  },
+  {
     src: "/assets/sunset_copas.jpeg",
     alt: "Composición visual del atardecer y espíritu de escapada",
     width: 1280,
@@ -34,13 +40,14 @@ const slides = [
 ];
 
 export default function Galeria() {
-  const plugins = useMemo(() => [Autoplay({ delay: 3500, stopOnInteraction: true })], []);
+  const plugins = useMemo(() => [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true, playOnInit: false })], []);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "center", dragFree: false, slidesToScroll: 1 },
     plugins,
   );
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -50,8 +57,25 @@ export default function Galeria() {
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     onSelect();
     emblaApi.on("select", onSelect);
-    emblaApi.plugins().autoplay?.play();
     return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi]);
+
+  // Arranca autoplay desde slide 0 solo cuando la sección entra en pantalla
+  useEffect(() => {
+    if (!emblaApi || !sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          emblaApi.scrollTo(0);
+          emblaApi.plugins().autoplay?.play();
+        } else {
+          emblaApi.plugins().autoplay?.stop();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, [emblaApi]);
 
   useEffect(() => {
@@ -71,7 +95,7 @@ export default function Galeria() {
 
   return (
     <>
-      <section className="galeria-section">
+      <section ref={sectionRef} className="galeria-section">
         <div ref={emblaRef} className="galeria-embla">
           <div className="galeria-track">
             {slides.map((slide, i) => (

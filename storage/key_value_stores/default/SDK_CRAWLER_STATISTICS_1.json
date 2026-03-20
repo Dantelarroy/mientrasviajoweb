@@ -1,0 +1,70 @@
+{
+  "requestsFinished": 1,
+  "requestsFailed": 5,
+  "requestsRetries": 5,
+  "requestsFailedPerMinute": 1132,
+  "requestsFinishedPerMinute": 226,
+  "requestMinDurationMillis": 62,
+  "requestMaxDurationMillis": 62,
+  "requestTotalFailedDurationMillis": 7,
+  "requestTotalFinishedDurationMillis": 62,
+  "crawlerStartedAt": "2026-03-18T17:03:49.028Z",
+  "crawlerFinishedAt": "2026-03-18T17:03:49.280Z",
+  "statsPersistedAt": "2026-03-18T17:03:49.280Z",
+  "crawlerRuntimeMillis": 265,
+  "crawlerLastStartTimestamp": 1773853429015,
+  "requestRetryHistogram": [
+    1,
+    null,
+    null,
+    null,
+    null,
+    5
+  ],
+  "statsId": 1,
+  "requestAvgFailedDurationMillis": 1,
+  "requestAvgFinishedDurationMillis": 62,
+  "requestTotalDurationMillis": 69,
+  "requestsTotal": 6,
+  "requestsWithStatusCode": {},
+  "errors": {
+    "file:///Users/dante/.npm/_npx/6ebc242af330a951/node_modules/got/dist/source/core/index.js:868:107": {
+      "ECONNREFUSED": {
+        "RequestError": {
+          "Unknown error message. Received non-error object, and could not stringify it: RequestError": {
+            "count": 5
+          }
+        }
+      }
+    },
+    "node:net:1193:18": {
+      "ECONNREFUSED": {
+        "AggregateError": {
+          "Unknown error message. Received non-error object: {\"code\":\"ECONNREFUSED\"}": {
+            "count": 5
+          }
+        }
+      }
+    }
+  },
+  "retryErrors": {
+    "file:///Users/dante/.npm/_npx/6ebc242af330a951/node_modules/got/dist/source/core/index.js:868:107": {
+      "ECONNREFUSED": {
+        "RequestError": {
+          "Unknown error message. Received non-error object, and could not stringify it: RequestError": {
+            "count": 25
+          }
+        }
+      }
+    },
+    "node:net:1193:18": {
+      "ECONNREFUSED": {
+        "AggregateError": {
+          "Unknown error message. Received non-error object: {\"code\":\"ECONNREFUSED\"}": {
+            "count": 25
+          }
+        }
+      }
+    }
+  }
+}

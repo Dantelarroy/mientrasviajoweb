@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { trackWhatsappConversion } from "../lib/analytics";
 
 const WHATSAPP_URL =
   "https://wa.me/34678728944?text=Hola!%20Me%20interesa%20la%20Escapada%20Vol%20I%20%F0%9F%8D%83";
@@ -11,9 +12,7 @@ export default function CTASticky() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => {
-      setVisible(window.scrollY > 300);
-    };
+    const onScroll = () => setVisible(window.scrollY > 300);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -35,8 +34,10 @@ export default function CTASticky() {
       className="cta-sticky"
       initial="hidden"
       animate={visible ? "visible" : "hidden"}
+      style={{ pointerEvents: visible ? "auto" : "none" }}
       variants={variants}
       transition={{ duration: reduceMotion ? 0.15 : 0.3, ease: "easeOut" }}
+      onClick={() => trackWhatsappConversion("Escapada Vol I - Sticky WhatsApp")}
       aria-label="Reservar por WhatsApp"
     >
       <svg viewBox="0 0 32 32" aria-hidden="true">

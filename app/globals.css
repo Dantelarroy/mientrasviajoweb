@@ -794,6 +794,7 @@ main {
 .galeria-embla {
   overflow: hidden;
   cursor: grab;
+  touch-action: pan-y pinch-zoom;
 }
 
 .galeria-track {
@@ -1207,6 +1208,10 @@ main {
 }
 
 /* ── STICKY NAV ── */
+.sticky-nav[aria-hidden="true"] {
+  pointer-events: none;
+}
+
 .sticky-nav {
   position: fixed;
   top: 0;
