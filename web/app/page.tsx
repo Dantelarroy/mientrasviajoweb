@@ -484,7 +484,7 @@ export default function Home() {
                         marginBottom: 0,
                       }}
                     >
-                      Si pagas antes del 15/04/2026
+                      Para las primeras 5 personas que se anotan, antes del 15/04
                     </p>
 
                     {/* Lo que incluye */}
