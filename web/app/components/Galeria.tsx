@@ -40,7 +40,7 @@ const slides = [
 ];
 
 export default function Galeria() {
-  const plugins = useMemo(() => [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true, playOnInit: false })], []);
+  const plugins = useMemo(() => [Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: false, playOnInit: false })], []);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "center", dragFree: false, slidesToScroll: 1 },
     plugins,
@@ -72,7 +72,7 @@ export default function Galeria() {
           emblaApi.plugins().autoplay?.stop();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
