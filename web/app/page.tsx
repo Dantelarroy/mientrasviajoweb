@@ -559,7 +559,7 @@ export default function Home() {
                         gap: "0.5rem",
                       }}
                     >
-                      Quiero reservar mi lugar →
+                      Quiero más info →
                     </TrackedLink>
 
                   </div>
