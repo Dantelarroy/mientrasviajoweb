@@ -172,7 +172,7 @@ export default function Home() {
         <StickyNav />
 
         {/* ── HERO ── */}
-        <section className="hero-section pb-[clamp(4rem,8vw,7rem)]">
+        <section className="hero-section pb-[clamp(1.5rem,3vw,2.5rem)]">
           <div className="hero-header">
             <div className="hero-banner">
               <Image
@@ -206,9 +206,6 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <CountdownTimer />
-                <a href="#reservar" className="hero-cta inline-flex items-center rounded-full px-8 py-3.5 mt-4">
-                  Quiero más info
-                </a>
               </div>
             </div>
           </div>

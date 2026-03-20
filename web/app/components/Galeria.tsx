@@ -86,10 +86,10 @@ export default function Galeria() {
       if (e.key === "ArrowLeft") setLightbox(i => i !== null ? (i - 1 + slides.length) % slides.length : 0);
     };
     window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [lightbox]);
 
